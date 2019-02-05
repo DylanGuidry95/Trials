@@ -11,6 +11,8 @@ public class CombinationLockBehaviour : MonoBehaviour
     Color Default;
 
     public GameObject door;
+    [SerializeField]
+    private float timer = 10.0f;
 
     private void Start()
     {
@@ -28,7 +30,11 @@ public class CombinationLockBehaviour : MonoBehaviour
     {
         CheckValues();
         OpenDoor(Vector3.up);
-	}
+        if (timer <= 0.0f)
+        {
+            Destroy(door);
+        }
+    }
 
     public void CheckValues()
     {
@@ -52,6 +58,7 @@ public class CombinationLockBehaviour : MonoBehaviour
         if(isLocked == false)
         {
             door.transform.position += direction * speed * Time.deltaTime;
+            timer -= Time.deltaTime;
         }
     }
 }
